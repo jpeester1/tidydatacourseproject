@@ -1,16 +1,40 @@
-#read the X test data
-
-#read the results for x_test
-x_test_df<-read.table("./test/X_test.txt", header=FALSE)
-
-#read the subjects
-x_subject_test_df<-read.table("./test/subject_test.txt", header=FALSE)
-
-#read the activity keys
-x_activity_test_df<-read.table("./test/y_test.txt", header=FALSE)
 
 #read the activity labels 
 activity_labels<-read.table("activity_labels.txt", header=FALSE)
+
+#read the measurement labels
+measurement_labels<-read.table("features.txt", header=FALSE)
+
+#read the results for x_test and x_train
+test_df<-read.table("./test/X_test.txt", header=FALSE)
+train_df<-read.table("./train/X_train.txt", header=FALSE)
+names(test_df)<-measurement_labels$V2
+names(train_df)<-measurement_labels$V2
+
+
+#read the subjects
+subject_test_df<-read.table("./test/subject_test.txt", header=FALSE)
+subject_train_df<-read.table("./train/subject_train.txt", header=FALSE)
+names(subject_test_df)<-'Subject'
+names(subject_train_df)<-'Subject'
+
+#read the activity keys and provide column names
+activity_test_df<-read.table("./test/y_test.txt", header=FALSE)
+activity_train_df<-read.table("./train/y_train.txt", header=FALSE)
+names(activity_test_df)<-'Activity'
+names(activity_train_df)<-'Activity'
+
+
+#merge training data
+train_df<-cbind(activity_train_df, train_df)
+train_df<-cbind(subject_train_df,train_df )
+
+#merge test data
+test_df<-cbind(activity_test_df, test_df)
+test_df<-cbind(subject_test_df,test_df )
+
+#bind the training and the testing data
+total_df<-rbind(test_df, train_df)
 
 #attemp to load the dplyr package
 if(!require(dplyr)){
