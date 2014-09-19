@@ -1,8 +1,21 @@
-#read the X train data
+#read the X test data
 
-x_test<-read.fwf("./test/X_test.txt", widths=c(17,rep(16, each=560)))
-#x_test_d<-read.table("./test/X_test.txt", header=FALSE)
+#read the results for x_test
+x_test_df<-read.table("./test/X_test.txt", header=FALSE)
 
+#read the subjects
+x_subject_test_df<-read.table("./test/subject_test.txt", header=FALSE)
+
+#read the activity keys
+x_activity_test_df<-read.table("./test/y_test.txt", header=FALSE)
+
+#read the activity labels 
+activity_labels<-read.table("activity_labels.txt", header=FALSE)
+
+#attemp to load the dplyr package
+if(!require(dplyr)){
+        install.packages("dplyr")
+}
 
 
 
