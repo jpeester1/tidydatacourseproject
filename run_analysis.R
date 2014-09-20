@@ -61,7 +61,7 @@ if(!require(sqldf)){
 }
 
 #build a data frame of the columns we want to use in our analysis
-matches <- sapply(measurement_labels$FeatureName, function(x) grepl('mean()', x))
+matches <- sapply(names(total_df), function(x) grepl('mean()', x))
 
 
 #join the total_df with the activity_labels dataframe to get the labels for each activity in the total_df
